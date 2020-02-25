@@ -23,24 +23,23 @@
                     <td>${message.getDate()}</td>
                     <td>
                         <form action="/chooseMsg" method="GET">
-                            <input type="hidden" name="productId" value=${message.getId()}>
-                            <input class="btn-success" type="submit" value="choose">
+                            <input type="hidden" name="messageId" value=${message.getId()}>
+                            <input type="submit" value="choose">
                         </form>
                     </td>
                 </tr>
             </#foreach>
         </table>
 
-        <form action="/sendMsg" method="POST">
+        <form action="/sendMessage" method="POST">
             <table>
                 <tr>
                     <td>message: </td>
                     <td>
-                        <input type="text" class="form-control"
-                               name="message" placeholder="enter your message">
+                        <input type="text" name="message" placeholder="enter your message">
                     </td>
                     <td>
-                        <input class="btn-success" type="submit" value="SEND">
+                        <input type="submit" value="SEND">
                     </td>
                 </tr>
             </table>
