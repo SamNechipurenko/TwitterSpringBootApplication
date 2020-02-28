@@ -21,16 +21,33 @@ simple messaging:
             <td>${message.getDate()}</td>
         </tr>
     </table>
+list of comments:
+    <table>
+        <tr>
+            <td>comment id</td>
+            <td>comment</td>
+            <td>date</td>
+        </tr>
 
-    <form action="/sendComment" method="POST">
+        <#foreach comment in comments>
+            <tr>
+                <td>${comment.getCommentId()}</td>
+                <td>${comment.getComment()}</td>
+                <td>${comment.getDate()}</td>
+            </tr>
+        </#foreach>
+    </table>
+
+    <form action="/sendComment" method="Get">
         <table>
             <tr>
                 <td>all comments: </td>
                 <td>
-                    <input type="text" name="comment" placeholder="enter your comment">
+                    <input type="hidden" name="messageId" value=${message.getId()}
                 </td>
                 <td>
-                <input type="submit" value="SEND">
+                    <input type="text" name="comment" placeholder="enter your comment">
+                    <input type="submit" value="SEND">
                 </td>
             </tr>
         </table>

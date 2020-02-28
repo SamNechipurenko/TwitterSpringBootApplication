@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class MessageController {
     private MessageService messageService;
 
     @Autowired
-    private CommentService cs;
+    private CommentService commentService;
 
     @GetMapping("/")
     public String hello(Model mav){
@@ -36,20 +37,31 @@ public class MessageController {
     public String lookAtMessage(Model mav, @RequestParam("messageId") int id){
         Message message = messageService.findMessageById(Long.valueOf(id)).get();
         mav.addAttribute("message", message);
-
-       for(Comment c : message.getCommentsCollection() ){
-            System.out.println(c.getComment());
-        }
+        mav.addAttribute("comments", message.getCommentsCollection());
 
         System.out.println(message.getMessage());
         return "message";
     }
 
     @PostMapping("/sendMessage")
-    public void sendMsq(@RequestParam("message") String message, HttpServletResponse response) throws IOException {
+    public void sendMsq(@RequestParam("message") String message,
+                        HttpServletResponse response) throws IOException {
         messageService.sendMessage(message);
         System.out.println(message);
         response.sendRedirect("/");
+    }
+
+    @GetMapping("/sendComment")
+    public String sendComment(Model mav, @RequestParam("comment") String comment,
+                            @RequestParam("messageId") int messageId,
+                            RedirectAttributes redirectAttributes,
+                            HttpServletResponse response) throws IOException {
+
+        //commentService.sendComment(comment, message);
+        redirectAttributes.addAttribute("messageId", messageId);
+        System.out.println(messageId);
+        System.out.println(comment);
+        return"redirect:/lookAtMessage";
     }
 
 

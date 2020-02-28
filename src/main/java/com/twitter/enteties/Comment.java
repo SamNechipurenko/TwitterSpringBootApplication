@@ -24,8 +24,8 @@ public class Comment implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date = new java.sql.Date(new java.util.Date().getTime());
 
     @JoinColumn(name = "message_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
