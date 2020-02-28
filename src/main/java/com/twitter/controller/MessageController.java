@@ -52,16 +52,13 @@ public class MessageController {
     }
 
     @GetMapping("/sendComment")
-    public String sendComment(Model mav, @RequestParam("comment") String comment,
+    public String sendComment(@RequestParam("comment") String comment,
                             @RequestParam("messageId") int messageId,
                             RedirectAttributes redirectAttributes,
                             HttpServletResponse response) throws IOException {
 
         messageService.sendComment(comment, Long.valueOf(messageId));
-        
         redirectAttributes.addAttribute("messageId", messageId);
-        System.out.println(messageId);
-        System.out.println(comment);
         return"redirect:/lookAtMessage";
     }
 
