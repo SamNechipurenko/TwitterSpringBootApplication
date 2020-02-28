@@ -46,7 +46,11 @@ public class MessageController {
     @PostMapping("/sendMessage")
     public void sendMsq(@RequestParam("message") String message,
                         HttpServletResponse response) throws IOException {
-        messageService.sendMessage(message);
+
+        if (!message.equals(null) && !message.equals("")){
+            messageService.sendMessage(message);
+        }
+
         System.out.println(message);
         response.sendRedirect("/");
     }
@@ -56,7 +60,10 @@ public class MessageController {
                             @RequestParam("messageId") int messageId,
                             RedirectAttributes redirectAttributes) throws IOException {
 
-        messageService.sendComment(comment, Long.valueOf(messageId));
+        if (!comment.equals(null) && !comment.equals("")){
+            messageService.sendComment(comment, Long.valueOf(messageId));
+        }
+
         redirectAttributes.addAttribute("messageId", messageId);
         return"redirect:/lookAtMessage";
     }
