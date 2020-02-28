@@ -1,5 +1,6 @@
 package com.twitter.service;
 
+import com.twitter.enteties.Comment;
 import com.twitter.enteties.Message;
 import com.twitter.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,15 @@ public class MessageService {
         return messageRepository.findById(id);
     }
 
+    public void sendComment(String comment, Long id){
+        Message message = messageRepository.findById(id).get();
+
+        Comment newComment = new Comment();
+        newComment.setMessageId(message);
+        newComment.setComment(comment);
+
+        message.getCommentsCollection().add(newComment);
+        messageRepository.save(message);
+    }
 }
 
