@@ -54,16 +54,11 @@ public class MessageController {
     @GetMapping("/sendComment")
     public String sendComment(@RequestParam("comment") String comment,
                             @RequestParam("messageId") int messageId,
-                            RedirectAttributes redirectAttributes,
-                            HttpServletResponse response) throws IOException {
+                            RedirectAttributes redirectAttributes) throws IOException {
 
         messageService.sendComment(comment, Long.valueOf(messageId));
         redirectAttributes.addAttribute("messageId", messageId);
         return"redirect:/lookAtMessage";
     }
-
-
-
-//
 
 }
