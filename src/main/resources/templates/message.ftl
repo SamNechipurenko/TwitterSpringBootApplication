@@ -15,19 +15,29 @@ simple messaging:
             <td>message</td>
             <td>date</td>
         </tr>
-    `   <tr>
+        <tr>
             <td>${message.getId()}</td>
             <td>${message.getMessage()}</td>
             <td>${message.getDate()}</td>
         </tr>
     </table>
-list of comments:
+
+
+
+
     <table>
-        <tr>
-            <td>comment id</td>
-            <td>comment</td>
-            <td>date</td>
-        </tr>
+        
+        <#if (commentsSize == 0)>
+            be first, who will comment the post
+        <#else> list of comments:
+
+            <tr>
+                <td>comment id</td>
+                <td>comment</td>
+                <td>date</td>
+            </tr>
+
+        </#if>
 
         <#foreach comment in comments>
             <tr>
