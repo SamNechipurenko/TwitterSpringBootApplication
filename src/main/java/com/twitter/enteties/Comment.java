@@ -27,7 +27,7 @@ public class Comment implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @JoinColumn(name = "messageId", referencedColumnName = "id")
+    @JoinColumn(name = "message_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Message messageId;
 

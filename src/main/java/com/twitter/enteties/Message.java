@@ -37,7 +37,7 @@ public class Message implements Serializable {
     private Date date = new java.sql.Date(new java.util.Date().getTime());
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Comment.class)
-    @JoinColumn(name ="messageId",referencedColumnName = "id")
+    @JoinColumn(name ="message_id",referencedColumnName = "id")
     private List<Comment> commentsCollection;
 
 
