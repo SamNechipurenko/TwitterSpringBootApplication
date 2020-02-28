@@ -4,10 +4,11 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "messages")
@@ -15,10 +16,10 @@ public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Basic(optional = false)
     @NotNull
@@ -33,26 +34,31 @@ public class Message implements Serializable {
     @NotNull
     @Column(name = "date")
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date date = new java.sql.Date(new java.util.Date().getTime());;
+    private Date date = new java.sql.Date(new java.util.Date().getTime());
+
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Comment.class)
+    @JoinColumn(name ="messageId",referencedColumnName = "id")
+    private List<Comment> commentsCollection;
+
 
     public Message() {
     }
 
-    public Message(Integer id) {
+    public Message(Long id) {
         this.id = id;
     }
 
-    public Message(Integer id, String message, Date date) {
+    public Message(Long id, String message, Date date) {
         this.id = id;
         this.message = message;
         this.date = date;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,12 +78,15 @@ public class Message implements Serializable {
         this.date = date;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "com.twitter.entities.Message[ id=" + id + " ]";
+    @XmlTransient
+    public Collection<Comment> getCommentsCollection() {
+        return commentsCollection;
     }
+
+    public void setCommentsCollection(List<Comment> commentsCollection) {
+        this.commentsCollection = commentsCollection;
+    }
+
 
 }
 

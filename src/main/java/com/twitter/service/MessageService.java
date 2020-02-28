@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MessageService {
@@ -20,9 +21,12 @@ public class MessageService {
     public void sendMessage(String message){
         Message newMessage = new Message();
         newMessage.setMessage(message);
-        //newMessage.setDate(new Date());
-        System.out.println(new Date());
         messageRepository.save(newMessage);
     }
+
+    public Optional<Message> findMessageById(Long id){
+        return messageRepository.findById(id);
+    }
+
 }
 

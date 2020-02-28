@@ -22,7 +22,7 @@
                     <td>${message.getMessage()}</td>
                     <td>${message.getDate()}</td>
                     <td>
-                        <form action="/chooseMsg" method="GET">
+                        <form action="/lookAtMessage" method="GET">
                             <input type="hidden" name="messageId" value=${message.getId()}>
                             <input type="submit" value="choose">
                         </form>
